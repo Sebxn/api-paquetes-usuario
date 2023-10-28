@@ -5,7 +5,6 @@ import (
 )
 
 const (
-
 	// Datos de conexión a la base de datos PostgreSQL
 	DBHost     = "34.72.243.84" // Cambia a la dirección IP o el nombre de host de tu servidor PostgreSQL
 	DBPort     = 5432           // Cambia al puerto de tu servidor PostgreSQL si es diferente

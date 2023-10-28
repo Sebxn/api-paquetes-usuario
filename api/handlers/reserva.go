@@ -126,4 +126,9 @@ func ObtenerPaquetesByUser(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(reservas); err != nil {
 		http.Error(w, "Error al convertir a JSON", http.StatusInternalServerError)
 	}
+
+	if reservas == nil {
+		http.Error(w, "El usuario no existe", http.StatusInternalServerError)
+		return
+	}
 }
