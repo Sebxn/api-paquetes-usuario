@@ -5,18 +5,16 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/rs/cors"
 )
 
 func ConfigureRoutes(r *mux.Router) {
-	// Habilitar CORS utilizando el paquete rs/cors solo para la ruta /aeropuertos
-	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:3000"}, // Permite el acceso desde el puerto 5173
-		AllowedMethods: []string{"GET"},
-	})
+	// allowedOrigins := []string{"http://facturacion.lumonidy.studio", "http://localhost:3000"}
 
-	// Aplicar el middleware CORS solo a la ruta /aeropuertos
+	// c := middleware.CorsMiddleware(allowedOrigins)
+	// r.Use(c)
 
-	r.Handle("/user_paquetes", c.Handler(http.HandlerFunc(handlers.ObtenerPaquetesByUser)))
+	r.Handle("/api/facturacion", http.HandlerFunc(handlers.HomeHandler))
+
+	r.Handle("/api/facturacion/user_paquetes", http.HandlerFunc(handlers.ObtenerPaquetesByUser))
 	// Agrega más configuraciones de rutas aquí si es necesario
 }
