@@ -2,18 +2,25 @@ package config
 
 import (
 	"fmt"
-)
+	"log"
+	"os"
 
-const (
-	// Datos de conexión a la base de datos PostgreSQL
-	DBHost     = "34.72.243.84" // Cambia a la dirección IP o el nombre de host de tu servidor PostgreSQL
-	DBPort     = 5432           // Cambia al puerto de tu servidor PostgreSQL si es diferente
-	DBUser     = "postgres"     // Cambia a tu nombre de usuario de PostgreSQL
-	DBPassword = "123456"       // Cambia a tu contraseña de PostgreSQL
-	DBName     = "bdtest"       // Cambia al nombre de tu base de datos PostgreSQL
+	"github.com/joho/godotenv"
 )
 
 // DBURL genera la URL de conexión a la base de datos PostgreSQL
 func DBURL() string {
-	return fmt.Sprintf("postgres://%s:%s@%s:%d/%s", DBUser, DBPassword, DBHost, DBPort, DBName)
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	DBHost := os.Getenv("DBHost")
+	DBUser := os.Getenv("DBUser")
+	DBPassword := os.Getenv("DBPassword")
+	DBPort := os.Getenv("DBPort")
+	DBName := os.Getenv("DBName")
+
+	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s", DBUser, DBPassword, DBHost, DBPort, DBName)
 }
